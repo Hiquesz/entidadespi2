@@ -7,12 +7,12 @@ class ProdutoController {
     }
 
     static async createProduto(req,res){
+        const id = parseInt(req.params.id)
         const {nome, arq2d, arq3d, desc} = req.body
         if(!nome || !arq2d || !arq3d || !desc){
             res.status(400).json({ error: 'Nome, Arq2D, Arq3D, Descrição, Imagem são obrigatórios'})
             return
         }
-        const id = getProdutoCount() + 1
         const createdProduto = await Produto.create ({id, nome, arq2d, arq3d, desc})
         res.status(210).json(createdProduto)
     }
