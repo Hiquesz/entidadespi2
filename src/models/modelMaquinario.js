@@ -14,7 +14,7 @@ export const Maquinario = db.define('Maquinario', {
     }
 )
 
-export const FindByPk = (id) => {
+export const findByPk = (id) => {
     return dbMaquinario.find(maquinario=> maquinario.id === id)
 }
 

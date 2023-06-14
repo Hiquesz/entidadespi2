@@ -6,9 +6,7 @@ if (formCadastro){
         return false
     })
 }
-function test(){
-    console.log('oii')
-}
+
 function cadastrarMaquinario(form){
     form.preventDefault();
     console.log({
@@ -47,19 +45,19 @@ function atualizarMaquinarios(){
         const maquinario = fetch('http://localhost:3000/Maquinarios')
         .then(resposta => resposta.json())
         .then(maquinarios => {
-            maquinarios.forEach(maquinarios => {
+            maquinarios.forEach(maquinario => {
                 const li = document.createElement('li')
-                li.textContent = `${maquinarios.nome}`
+                li.textContent = `${maquinario.nome} - Criado em: ${new Date(maquinario.createdAt).toLocaleDateString()} - Atualizado em: ${new Date(maquinario.updatedAt).toLocaleDateString()}`
 
-                const botaoExcluir = document.createdElement('button')
+                const botaoExcluir = document.createElement('button')
                 botaoExcluir.textContent = 'Excluir'
-                botaoExcluir.classname = 'btn btn-danger m-1'
+                botaoExcluir.className = 'button is-danger'
                 botaoExcluir.addEventListener('click', () => deleteMaquinario(maquinario.id))
                 li.appendChild(botaoExcluir)
 
-                const botaoAtualizar = document.createdElement('button')
+                const botaoAtualizar = document.createElement('button')
                 botaoAtualizar.textContent = 'Atualizar'
-                botaoAtualizar.className = 'btn btn-warning m-1'
+                botaoAtualizar.className = 'button is-warning'
                 botaoAtualizar.addEventListener('click', () => showMaquinario(maquinario))
                 li.appendChild(botaoAtualizar)
 
@@ -69,7 +67,7 @@ function atualizarMaquinarios(){
 
 function atualizarMaquinarios(form){
     const maquinario = {
-        nome: form.target.nomeUpdate.value,
+        nome: form.target.nomeUpdate.value
     }
         fetch(`http://localhost:3000/Maquinarios/${form.target.idUpdate.value}` ,{
             method: 'PUT',

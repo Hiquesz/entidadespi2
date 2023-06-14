@@ -27,7 +27,7 @@ export const Ferramenta = db.define('Ferramenta', {
 )
 
 export const destroyFer = (id) => {
-    const ferramenta = FindByPk(id)
+    const ferramenta = findByPk(id)
     if(!ferramenta) {
         return false
     }
@@ -36,12 +36,12 @@ export const destroyFer = (id) => {
     return true
 }
 
-export const FindByPk = (id) => {
+export const findByPk = (id) => {
     return dbFerramenta.find(ferramenta=> ferramenta.id === id)
 }
 
 export const updateFer = (id,ferramenta) => {
-    const ferramentaToUpdate = FindByPk(id)
+    const ferramentaToUpdate = findByPk(id)
     if(!ferramentaToUpdate) {
         return false
     }

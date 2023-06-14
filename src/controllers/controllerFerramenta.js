@@ -1,4 +1,4 @@
-import {  createFerramenta,Ferramenta, getFerramenta, updateFer, getFerramentaCount, FindByPk, destroyFer } from "../models/modelFerramenta.js";
+import {  createFerramenta,Ferramenta, getFerramenta, updateFer, getFerramentaCount, findByPk, destroyFer } from "../models/modelFerramenta.js";
 
 class FerramentaController {
     static async list(req,res){
@@ -20,7 +20,7 @@ class FerramentaController {
 
     static async getFerramentaById(req, res) {
         const id = parseInt(req.params.id)
-        const ferramenta = Ferramenta.FindByPk(id)
+        const ferramenta = await Ferramenta.findByPk(id)
         if(!ferramenta){
             res.status(404).json({error: 'Ferramenta não encontrado'})
         }
@@ -28,18 +28,18 @@ class FerramentaController {
     }
     static async destroyFerramenta(req,res) {
         const id = parseInt(req.params.id)
-        const ferramenta = await Ferramenta.FindByPk(id)
+        const ferramenta = await Ferramenta.findByPk(id)
         if(!ferramenta){
             res.status(404).json({error: "Ferramenta não encontrado"})
             return
         }
-        await Ferramenta.destroyFer({where: {id: ferramenta.id}})
+        await Ferramenta.destroy({where: {id: ferramenta.id}})
         res.json({message: "Ferramenta removido com sucesso"})
     }
 
     static async updateFerramenta(req,res) {
         const id = parseInt(req.params.id)
-        const ferramenta = Ferramenta.FindByPk(id)
+        const ferramenta = Ferramenta.findByPk(id)
         if(!ferramenta) {
             res.status(404).json({error: "Ferramenta não encontrado"})
             return

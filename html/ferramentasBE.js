@@ -55,17 +55,17 @@ function atualizarFerramentas(){
         .then(ferramentas => {
             ferramentas.forEach(ferramenta => {
                 const li = document.createElement('li')
-                li.textContent = `${ferramenta.nome} - ${ferramenta.desc} - ${ferramenta.arq2d} - ${ferramenta.arq3d}`
+                li.textContent = `${ferramenta.nome} - ${ferramenta.quantidade} - ${ferramenta.arq2d} - ${ferramenta.arq3d} - Criado em: ${new Date(ferramenta.createdAt).toLocaleDateString()} - ${new Date(ferramenta.updatedAt).toLocaleDateString()}`
 
-                const botaoExcluir = document.createdElement('button')
+                const botaoExcluir = document.createElement('button')
                 botaoExcluir.textContent = 'Excluir'
-                botaoExcluir.classname = 'btn btn-danger m-1'
+                botaoExcluir.className = 'button is-danger'
                 botaoExcluir.addEventListener('click', () => deleteFerramenta(ferramenta.id))
                 li.appendChild(botaoExcluir)
 
-                const botaoAtualizar = document.createdElement('button')
+                const botaoAtualizar = document.createElement('button')
                 botaoAtualizar.textContent = 'Atualizar'
-                botaoAtualizar.className = 'btn btn-warning m-1'
+                botaoAtualizar.className = 'button is-warning'
                 botaoAtualizar.addEventListener('click', () => showFerramenta(ferramenta))
                 li.appendChild(botaoAtualizar)
 

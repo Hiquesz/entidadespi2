@@ -43,7 +43,8 @@ var formUpdate = document.getElementById("formUpdate")
 formUpdate?.addEventListener("submit", function (event) {
     event.preventDefault()
     atualizarProduto(event)
-})
+}) 
+
 function atualizarProdutos(){
     var listaProdutos = document.getElementById('listaProdutos')
     if(listaProdutos){
@@ -55,19 +56,24 @@ function atualizarProdutos(){
         .then(produtos => {
             produtos.forEach(produto => {
                 const li = document.createElement('li')
-                li.textContent = `${produto.nome} - ${produto.arq2d} - ${produto.arq3d} - ${produto.desc} - ${produto.imagem}`
+                li.textContent = `${produto.id} - ${produto.nome} - ${produto.arq2d} - ${produto.arq3d} - ${produto.desc} - Criado em: ${new Date(produto.createdAt).toLocaleDateString()} - Atualizado em: ${new Date(produto.updatedAt).toLocaleDateString()}`
 
-                const botaoExcluir = document.createdElement('button')
+                const btns = document.createElement('div')
+                btns.className = 'buttons is-grouped'
+
+                const botaoExcluir = document.createElement('button')
                 botaoExcluir.textContent = 'Excluir'
-                botaoExcluir.classname = 'btn btn-danger m-1'
+                botaoExcluir.className = 'button is-danger'
                 botaoExcluir.addEventListener('click', () => deleteProduto(produto.id))
-                li.appendChild(botaoExcluir)
+                btns.appendChild(botaoExcluir)
 
-                const botaoAtualizar = document.createdElement('button')
+                const botaoAtualizar = document.createElement('button')
                 botaoAtualizar.textContent = 'Atualizar'
-                botaoAtualizar.className = 'btn btn-warning m-1'
+                botaoAtualizar.className = 'button is-warning'
                 botaoAtualizar.addEventListener('click', () => showProduto(produto))
-                li.appendChild(botaoAtualizar)
+                btns.appendChild(botaoAtualizar)
+
+                li.appendChild(btns)
 
                 document.getElementById('listaProdutos').appendChild(li)
         })
@@ -75,7 +81,7 @@ function atualizarProdutos(){
 
 function atualizarProduto(form){
     const produto = {
-        nome: form.target.nomeUpdate.value,
+        nome: form.target.nomeAtt.value,
         arq2d: form.target.arq2dUpdate.value,
         arq3d: form.target.arq3dUpdate.value,
         desc: form.target.descUpdate.value,
@@ -87,13 +93,13 @@ function atualizarProduto(form){
             body: JSON.stringify(produto)
         }).then(resposta => {
             if(resposta.status != 200) {
-                alert('Erro ao atualizar produto!')
+                alert('Erro ao atualizar Produto!')
             }else{
-                alert('Sucesso ao atualizar produto!')
+                alert('Sucesso ao atualizar Produto!')
             }
             form.target.reset()
-            atualizarProduto()
-            document.getElementById('btnUpdate').disabled = false
+            atualizarProduto(form)
+            document.getElementById('btnUpdate')//.disabled = false
         })
     }
 
@@ -102,7 +108,7 @@ function deleteProduto(id) {
         method: 'DELETE'
     }).then(resposta => {
         if(resposta.status != 200){
-            alert('Erro ao excluir roduto!')
+            alert('Erro ao excluir Produto!')
         }
         alert('Produto excluído com sucesso')
         atualizarProdutos()
@@ -111,12 +117,17 @@ function deleteProduto(id) {
 
 atualizarProdutos()
 
+//var formShow = document.getElementById("formShow")
+//formShow?.addEventListener("show", function (event) {
+//   event.preventDefault()
+//    showProduto(event)
+//})
+
 function showProduto(produto) {
     document.getElementById('nomeUpdate'). value = produto.nome
     document.getElementById('arq2dUpdate'). value = produto.arq2d
     document.getElementById('arq3dUpdate'). value = produto.arq3d
     document.getElementById('descUpdate'). value = produto.desc
-    document.getElementById('imagemUpdate'). value = produto.imagem
     document.getElementById('idUpdate'). value = produto.id
     document.getElementById('btnUpdate'). disabled = false
 

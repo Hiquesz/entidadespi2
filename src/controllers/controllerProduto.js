@@ -1,4 +1,4 @@
-import { createProduto,FindByPk, Produto ,getProduto, getProdutoCount, destroyProd, updateProd } from "../models/modelProduto.js";
+import { createProduto,findByPk, Produto ,getProduto, getProdutoCount, destroyProd, updateProd } from "../models/modelProduto.js";
 
 class ProdutoController {
     static async list(req,res){
@@ -19,7 +19,7 @@ class ProdutoController {
 
     static async getProdutoById(req, res) {
         const id = parseInt(req.params.id)
-        const produto = await Produto.FindByPk(id)
+        const produto = await Produto.findByPk(id)
         if(!produto){
             res.status(404).json({error: 'Produto não encontrado'})
             return
@@ -29,18 +29,18 @@ class ProdutoController {
     }
     static async destroyProduto(req,res) {
         const id = parseInt(req.params.id)
-        const produto = await Produto.FindByPk(id)
+        const produto = await Produto.findByPk(id)
         if(!produto){
             res.status(404).json({error: "Produto não encontrado"})
             return
         }
-        await Produto.destroyProd({where: {id: produto.id}})
+        await Produto.destroy({where: {id: produto.id}})
         res.json({message: "Produto removido com sucesso"})
     }
 
     static async updateProduto(req,res) {
         const id = parseInt(req.params.id)
-        const produto = await Produto.FindByPk(id)
+        const produto = await Produto.findByPk(id)
         if(!produto) {
             res.status(404).json({error: "Produto não encontrado"})
             return

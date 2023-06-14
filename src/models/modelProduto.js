@@ -31,7 +31,7 @@ export const Produto = db.define('Produto', {
 )
 
 export const destroyProd = (id) => {
-    const produto = FindByPk(id)
+    const produto = findByPk(id)
     if(!produto) {
         return false
     }
@@ -40,12 +40,12 @@ export const destroyProd = (id) => {
     return true
 }
 
-export const FindByPk = (id) => {
+export const findByPk = (id) => {
     return dbProduto.find(produto=> produto.id === id)
 }
 
 export const updateProd = (id,produto) => {
-    const produtoToUpdate = FindByPk(id)
+    const produtoToUpdate = findByPk(id)
     if(!produtoToUpdate) {
         return false
     }
